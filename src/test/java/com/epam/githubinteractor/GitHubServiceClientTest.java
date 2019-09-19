@@ -1,20 +1,18 @@
 package com.epam.githubinteractor;
 
 import static com.epam.githubinteractor.TestUtils.prepareResponseEntity;
-import static org.hamcrest.core.Is.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -38,12 +36,10 @@ public class GitHubServiceClientTest
         responseEntity = prepareResponseEntity();
     }
 
-    @Ignore("Issue with null mock retirn outpu need to investigated")
     @Test
     public void searchRepositoryByNameTest()
     {
-        when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(
-                ParameterizedTypeReference.class))).thenReturn(responseEntity);
+        when(restTemplate.exchange(anyString(), any(HttpMethod.class), any(HttpEntity.class), any(Class.class))).thenReturn(responseEntity);
         ResponseEntity<JsonNode> actualResponse = gitHubServiceClient.searchRepositoryByName(gitHubServiceCallManager.prepareSearchCriteriaParameters());
         assertThat("Verify maps are identical", actualResponse, is(responseEntity));
     }
